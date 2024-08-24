@@ -1,3 +1,10 @@
+<!-- sldsValidatorIgnore -->
 <template>
-    
+    <lightning-card title="SOQL Query Executor">
+        <div class="slds-var-p-around_medium">
+            <lightning-textarea label="Enter SOQL Query" value={soqlQuery} onchange={handleQueryChange}></lightning-textarea>
+            <lightning-button label="Execute Query" onclick={handleExecuteQuery}></lightning-button>
+        </div>
+
+    </lightning-card>
 </template>
