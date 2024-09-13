@@ -1,11 +1,29 @@
 import { LightningElement, track } from 'lwc';
 import executeQuery from '@salesforce/apex/SOQLQueryController.executeQuery';
+import FORMULAJS from '@salesforce/resourceUrl/formulaJs';
+import { loadScript } from 'lightning/platformResourceLoader';
 
 export default class SoqlTable extends LightningElement {
     soqlQuery = '';
     @track queryResult = [];
     @track columns = [];
+    formulaJsInitialized = false;
 
+    connectedCallback() {
+        if (this.formulaJsInitialized) {
+            return;
+        }
+        this.formulaJsInitialized = true;
+
+        loadScript(this, FORMULAJS)
+            .then(() => {
+                console.log('Formula.js loaded successfully.');
+            })
+            .catch(error => {
+                console.error('Error loading Formula.js:', error);
+            });
+    }
+    
     handleQueryChange(event) {
         this.soqlQuery = event.target.value;
     }
